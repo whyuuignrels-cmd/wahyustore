@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>WahyuStore</title>
+<title>wahyuStore</title>
 
 <style>
 * {
@@ -13,92 +13,156 @@
     padding: 0;
 }
 
+html {
+    min-height: 100%;
+}
+
 body {
     font-family: Arial, sans-serif;
     min-height: 100vh;
-    color: white;
+    color: #fff;
     background: #080808;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* BACKGROUND MERAH AESTHETIC */
-body::before,
-body::after {
-    content: "";
+/* BACKGROUND */
+.background {
     position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(255, 0, 60, 0.38),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 85%,
+            rgba(155, 0, 31, 0.42),
+            transparent 38%
+        ),
+        #080808;
+}
+
+.glow {
+    position: absolute;
     width: 420px;
     height: 420px;
     border-radius: 50%;
-    filter: blur(120px);
-    z-index: -1;
-}
-
-body::before {
-    background: #ff003c;
-    top: -150px;
-    left: -150px;
-    opacity: .45;
-    animation: move1 8s infinite alternate;
-}
-
-body::after {
-    background: #9b001f;
-    right: -150px;
-    bottom: -150px;
+    filter: blur(110px);
     opacity: .5;
-    animation: move2 10s infinite alternate;
 }
 
-@keyframes move1 {
+.glow.one {
+    background: #ff003c;
+    top: -180px;
+    left: -180px;
+    animation: moveOne 8s infinite alternate ease-in-out;
+}
+
+.glow.two {
+    background: #9b001f;
+    right: -180px;
+    bottom: -180px;
+    animation: moveTwo 10s infinite alternate ease-in-out;
+}
+
+@keyframes moveOne {
+    from {
+        transform: translate(0, 0);
+    }
+
     to {
         transform: translate(180px, 150px);
     }
 }
 
-@keyframes move2 {
+@keyframes moveTwo {
+    from {
+        transform: translate(0, 0);
+    }
+
     to {
         transform: translate(-180px, -120px);
     }
 }
 
+/* CONTAINER */
 .container {
+    position: relative;
+    z-index: 2;
+
     width: 92%;
     max-width: 500px;
+
     margin: auto;
-    padding: 25px 0 40px;
+    padding: 28px 0 50px;
 }
 
+/* LOGO */
 .logo {
     text-align: center;
+
     font-size: 28px;
     font-weight: 800;
+
     letter-spacing: 4px;
+
     margin-bottom: 25px;
+
+    text-shadow:
+        0 0 10px rgba(255, 0, 60, .5),
+        0 0 25px rgba(255, 0, 60, .25);
 }
 
+/* CARD */
 .card {
-    background: rgba(18,18,18,.82);
+    position: relative;
+
+    background: rgba(18, 18, 18, .88);
+
     border: 1px solid rgba(255,255,255,.12);
+
     border-radius: 24px;
+
     padding: 14px;
+
     backdrop-filter: blur(18px);
-    box-shadow: 0 20px 50px rgba(0,0,0,.55);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.55),
+        0 0 35px rgba(255,0,60,.08);
 }
 
+/* IMAGE */
 .image-box {
     width: 100%;
     height: 330px;
+
     border-radius: 18px;
+
     overflow: hidden;
+
     background: #151515;
+
+    border: 1px solid rgba(255,255,255,.08);
 }
 
 .image-box img {
+    display: block;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 }
 
+/* DOTS */
 .dots {
     text-align: center;
     margin: 13px 0;
@@ -106,55 +170,170 @@ body::after {
 
 .dot {
     display: inline-block;
+
     width: 8px;
     height: 8px;
+
     margin: 0 4px;
+
     border-radius: 50%;
+
     background: #555;
 }
 
 .dot.active {
     background: #ff1744;
-    box-shadow: 0 0 10px #ff1744;
+
+    box-shadow:
+        0 0 10px #ff1744;
 }
 
+/* PRODUCT NAME */
 .name {
     font-size: 23px;
+
     font-weight: bold;
+
     margin-top: 8px;
+
+    line-height: 1.3;
 }
 
-.price {
-    color: #ff3157;
-    font-size: 21px;
-    font-weight: bold;
-    margin-top: 8px;
-}
-
+/* DESCRIPTION */
 .description {
     color: #bdbdbd;
+
     font-size: 14px;
+
     line-height: 1.6;
+
     margin-top: 14px;
 }
 
+/* CHAT ADMIN BUTTON */
 .buy {
     display: block;
+
     text-align: center;
+
     text-decoration: none;
-    color: white;
+
+    color: #fff;
+
+    font-size: 16px;
+
     font-weight: bold;
-    background: linear-gradient(90deg,#ff003c,#a9002d);
-    padding: 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff003c,
+            #a9002d
+        );
+
+    padding: 16px;
+
     border-radius: 14px;
-    margin-top: 20px;
-    box-shadow: 0 8px 25px rgba(255,0,60,.3);
+
+    margin-top: 22px;
+
+    box-shadow:
+        0 8px 25px rgba(255,0,60,.3);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.buy:active {
+    transform: scale(.97);
+}
+
+.buy:hover {
+    box-shadow:
+        0 10px 35px rgba(255,0,60,.5);
+}
+
+/* MOBILE */
+@media (max-width: 400px) {
+
+    .container {
+        width: 94%;
+        padding-top: 22px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .image-box {
+        height: 300px;
+    }
+
+    .name {
+        font-size: 21px;
+    }
 }
 </style>
 </head>
 
 <body>
 
+<!-- BACKGROUND -->
+<div class="background">
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+</div>
+
+<!-- CONTENT -->
 <div class="container">
 
-    <div class="
+    <!-- LOGO -->
+    <div class="logo">
+        WAHYUSTORE
+    </div>
+
+    <!-- PRODUCT CARD -->
+    <div class="card">
+
+        <!-- PRODUCT IMAGE -->
+        <div class="image-box">
+            <img
+                src="https://placehold.co/700x700/151515/ffffff?text=AKUN+FF"
+                alt="Akun Free Fire"
+            >
+        </div>
+
+        <!-- IMAGE INDICATOR -->
+        <div class="dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+        <!-- PRODUCT NAME -->
+        <div class="name">
+            STOK RENTAL 1
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="description">
+            SEWA AKUN LANGSUNG CLICK TOMBOL DI BAWAH AJA
+        </div>
+
+        <!-- CHAT ADMIN -->
+        <a
+            class="sewa"
+            href="https://wa.me/RENTALAKUNFFBYWAHYU?text=Halo%20Min%20Wahyu%20Mau%20Sewa%20Akun."
+            target="_blank"
+            rel="noopener"
+        >
+            CHAT ADMIN
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>
